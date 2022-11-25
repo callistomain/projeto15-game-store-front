@@ -2,8 +2,10 @@ import GlobalStyled from "./GlobalStyled";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import SignupPage from "./pages/Signup/SignupPage";
 import LoginPage from "./pages/Login/LoginPage";
+import HomePage from "./pages/Home/HomePage";
 import { UserContext } from "./UserContext";
 import { useState } from "react";
+import CartPage from "./pages/Cart/CartPage";
 
 export default function App() {
   const userObj = JSON.parse(localStorage.getItem("userGameStore"));
@@ -16,7 +18,7 @@ export default function App() {
         <Routes>
           {/* HOME */}
           <Route path="/" element={
-            user ? <div>Home</div> : <Navigate replace to="/login" />
+            user ? <HomePage/> : <Navigate replace to="/login" />
           }/>
 
           {/* LOGIN */}
@@ -24,6 +26,9 @@ export default function App() {
 
           {/* SIGNUP */}
           <Route path="/signup" element={<SignupPage/>}/>
+
+          {/* SIGNUP */}
+          <Route path="/cart" element={<CartPage/>}/>
 
         </Routes>
       </UserContext.Provider>

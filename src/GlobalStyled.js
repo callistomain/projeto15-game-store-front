@@ -29,6 +29,7 @@ const GlobalStyled = createGlobalStyle`
 
   body {
     line-height: 1;
+    font-family: 'Open Sans', sans-serif;
   }
 
   ol, ul {
@@ -55,6 +56,7 @@ const GlobalStyled = createGlobalStyle`
   }
 
   * {
+  font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;

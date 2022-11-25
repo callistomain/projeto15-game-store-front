@@ -16,8 +16,6 @@ export default function LoginPage({setUser}) {
       password: password.value
     };
 
-    console.log(obj);
-
     axios.post(url.login, obj)
     .then(r => {
       localStorage.setItem("userGameStore", JSON.stringify(r.data));
