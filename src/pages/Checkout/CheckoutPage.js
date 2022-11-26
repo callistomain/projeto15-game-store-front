@@ -8,25 +8,15 @@ import { useLocation } from 'react-router-dom'
 export default function CheckoutPage(){
     const user = useContext(UserContext);
     const {cartItems} = useLocation().state;
-    const [items, setItems] = useState([])
     const [buyerInfo, setBuyerInfo] = useState([]);
-    useEffect(()=>{
-        const headers = {Authorization: "Bearer " + user.token};
-        axios.get(url.products, {headers})
-        .then(r => {
-          setItems(r.data);
-        })
-        .catch(e => console.log(e));
-    })
     function handleCompra(e){
         const headers = {Authorization: "Bearer " + user.token};
-        let totalVal=0;
-        cartItems.map((i)=>totalVal += parseFloat(items[i].price))
+        const gamesBoughtIds = cartItems.map(i=> {return  i._id})
         const sale ={
             buyerInfo: buyerInfo,
-            totalPrice: totalVal
+            gamesBoughtIds: gamesBoughtIds
         }
-        
+
         axios.post(url.sales,sale,{headers})
         .then(p=>console.log(p)).catch(r=>console.log(r));
     }

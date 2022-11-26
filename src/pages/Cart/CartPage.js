@@ -10,21 +10,18 @@ import { Link } from "react-router-dom";
 export default function CartPage() {
   const user = useContext(UserContext);
   const [cartItems, setCartItems] = useState([])
-  const [items, setItems] = useState([])
+  const [totalPrice, setTotalPrice] = useState()
 
   useEffect(()=>{
-    const headers = {Authorization: "Bearer " + user.token};
-
-    axios.get(url.products, {headers})
-    .then(r => {
-      setItems(r.data);
-    })
-    .catch(e => console.log(e));
+    const headers = {
+      Authorization: "Bearer " + user.token
+  };
 
     axios.get(url.cart, {headers})
     .then(r => {
       console.log(r);
-      setCartItems(r.data.data);
+      setCartItems(r.data.games);
+      setTotalPrice(r.data.totalPrice)
     })
     .catch(e => console.log(e));
   },[])
@@ -32,8 +29,9 @@ export default function CartPage() {
     <CartStyle>
       <Header/>
       <ul>
-        {cartItems.map((item,index)=>(<StyledItem key={index}>{items[parseInt(item)].title}</StyledItem>))}
+        {cartItems.map((item,index)=>(<StyledItem key={index}><p>{item.title}</p><p>{item.price}</p></StyledItem>))}
       </ul>
+      <h3>Preco total: {totalPrice}</h3>
       <Link to={"/checkout"} state={{cartItems:cartItems}} >
       <div>CHECKOUT</div>
       </Link>
@@ -44,4 +42,7 @@ export default function CartPage() {
 const StyledItem = styled.li`
 color:black;
 background-color:pink;
+display:flex;
+justify-content:space-between;
+
 `
