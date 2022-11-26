@@ -6,6 +6,7 @@ import HomePage from "./pages/Home/HomePage";
 import { UserContext } from "./UserContext";
 import { useState } from "react";
 import CartPage from "./pages/Cart/CartPage";
+import CheckoutPage from "./pages/Checkout/CheckoutPage";
 
 export default function App() {
   const userObj = JSON.parse(localStorage.getItem("userGameStore"));
@@ -29,6 +30,8 @@ export default function App() {
 
           {/* SIGNUP */}
           <Route path="/cart" element={<CartPage/>}/>
+
+          <Route path="/checkout" element={<CheckoutPage/>}/>
 
         </Routes>
       </UserContext.Provider>
