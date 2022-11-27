@@ -29,20 +29,41 @@ export default function CartPage() {
     <CartStyle>
       <Header/>
       <ul>
-        {cartItems.map((item,index)=>(<StyledItem key={index}><p>{item.title}</p><p>{item.price}</p></StyledItem>))}
+        {cartItems.map((item,index)=>(<StyledItem key={index}><img src={item.image}/><p>{item.title}</p><p><span>R$</span>{item.price}</p></StyledItem>))}
       </ul>
-      <h3>Preco total: {totalPrice}</h3>
-      <Link to={"/checkout"} state={{cartItems:cartItems}} >
-      <div>CHECKOUT</div>
+      <div className="totalPrice"><h3>Preco total:</h3><h3><span>R$</span>{totalPrice}</h3></div>
+      <Link to={"/checkout"} >
+      <div className="btnCheckout">CHECKOUT</div>
       </Link>
     </CartStyle>
   );
 }
 
 const StyledItem = styled.li`
-color:black;
-background-color:pink;
+border: 1px solid #17313a;
+box-sizing:border-box;
+padding-right:20px;
+padding-left:10px;
+margin-bottom:10px;
+width:60vw;
+height:240px;
+color:white;
+background-color:#102531;
 display:flex;
 justify-content:space-between;
+align-items:center;
+border-radius:5px;
+>p{
+  font-size:25px;
+  >span {
+      color: #88a0a7;
+    }
+  
+}
+> img{
+  width:400px;
+  height:230px;
+}
+
 
 `
