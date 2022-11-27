@@ -2,13 +2,14 @@ import axios from 'axios';
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { colorBG } from '../../../constants/colors';
+import { numFormat } from '../../../constants/format';
 import { url } from '../../../constants/urls';
 import { UserContext } from '../../../UserContext';
 
 export default function ProductItem({data, selected, setSelected}) {
   const user = useContext(UserContext);
   const {id, title, price, image} = data;
-  const numberFormat = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+  
 
   function eventHandler(e) {
     setSelected(obj => {
@@ -34,7 +35,7 @@ export default function ProductItem({data, selected, setSelected}) {
       <img src={image} alt="" draggable="false"/>
       <div className="bottom">
         <div className="title">{title}</div>
-        <div className="price"><span>R$</span> {numberFormat.format(price).replace("R$", "")}</div>
+        <div className="price"><span>R$</span> {numFormat(price)}</div>
       </div>
     </ProductStyle>
   );
@@ -65,6 +66,13 @@ export const ProductStyle = styled.li`
     padding: 8px;
     color: white;
     background-color: green;
+  }
+
+  img {
+    border-bottom: 1px solid #17313a;
+    width: 318px;
+    height: 180px;
+    object-fit: cover;
   }
 
   .bottom {

@@ -12,32 +12,60 @@ export const CartStyle = styled.div`
   flex-direction:column;
   align-items:center;
 
+  ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
   .btnCheckout {
-    color:white;
     font-size:25px;
     margin-top:20px;
-  width:400px;
-  height:70px;
-  border-radius:7px;
-  background-color: #102531;
-  border: 1px solid #17313a;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+    width:400px;
+    height:70px;
   }
-  >.totalPrice{
-    height:45px;
-    font-size:30px;
-    border: 1px solid #17313a;
-    background: #102531;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    border-radius:3px;
-    width:60vw;
-    span {
-      color: #88a0a7;
-    }
 
+  .totalPrice{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+    width: 60vw;
+    min-width: 548px;
+    height: 72px;
+    background-color: #102531;
+    border: 1px solid #d47559;
+
+    div {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 16px;
+    }
+    
+    .title {
+      font-weight: 500;
+    }
+    
+    .price {
+      border-left: 1px solid #17313a;
+      background-color: ${colorBG};
+      font-weight: 600;
+      span {
+        color: #88a0a7;
+      }
+    }
+  }
+
+  @media (max-width: 614px) {
+    .totalPrice{
+      width: 100%;
+      min-width: 300px;
+      margin: 0 32px;
+    }
   }
 `;
