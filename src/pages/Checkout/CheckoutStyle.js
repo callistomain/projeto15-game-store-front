@@ -14,6 +14,17 @@ padding-left:10vw;
 padding-right:10vw;
 padding-top:5vh;
 box-sizing:border-box;
+.backgroundShadow{
+    display: ${props=>props.displayModal? "block":"none"};
+    opacity: 0.4;
+    left:0px;
+    top:0px;
+    z-index:11;
+    position:fixed;
+    background-color:black;
+    width:100vw;
+    height:100vh;
+}
 >form{
     margin-top:20px;
     background: #102531;
