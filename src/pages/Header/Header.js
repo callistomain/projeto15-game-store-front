@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import { url } from '../../constants/urls';
 import { UserContext } from '../../UserContext';
 
-export default function Header({selected}) {
+export default function Header({setUser}) {
   const user = useContext(UserContext);
 
   function logoutHandler(e) {
     localStorage.removeItem("userGameStore");
+    setUser(null);
     const headers = {Authorization: "Bearer " + user.token};
     axios.delete(url.session, {headers})
     .catch(e => console.log(e));
@@ -21,8 +22,12 @@ export default function Header({selected}) {
         <h1><div></div>Game<span>Store</span></h1>
       </Link>
       <div className="options">
-        <Link to="/cart" className="cart">CART</Link>
-        <Link to="/login" className="logout" onClick={logoutHandler}>LOGOUT</Link>
+        <Link to="/cart" className="cart">
+          Carrinho
+        </Link>
+        <Link to="/login" className="logout" onClick={logoutHandler}>
+          Sair
+        </Link>
       </div>
     </HeaderStyle>
   );

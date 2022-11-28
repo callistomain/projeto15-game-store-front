@@ -41,7 +41,8 @@ box-sizing:border-box;
         margin-bottom:15px;
     }
     >input{
-        width:500px;
+        width:100%;
+        margin: 0 32px;
         height:50px;
         padding-left:10px;
         box-sizing:border-box;

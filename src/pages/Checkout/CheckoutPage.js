@@ -4,18 +4,17 @@ import { CheckoutStyle } from "./CheckoutStyle";
 import { url } from "../../constants/urls";
 import axios from "axios";
 import Header from "../Header/Header";
-import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import LoadingPage from "../Loading/LoadingPage";
 
-export default function CheckoutPage(){
+export default function CheckoutPage({setUser}){
     const user = useContext(UserContext);
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useState(null);
+    const [totalPrice, setTotalPrice] = useState(null);
     const [buyerInfo, setBuyerInfo] = useState([]);
-    const [totalPrice, setTotalPrice] = useState();
     const [showModal, setShowModal] = useState(false);
     const [saleInfo, setSaleInfo] = useState({nmae:"",gamesBought:[],payment:"",price:""});
-    const navigate = useNavigate();
 
     useEffect(()=>{
       const headers = {
@@ -29,7 +28,10 @@ export default function CheckoutPage(){
         setTotalPrice(r.data.totalPrice)
       })
       .catch(e => console.log(e));
-    },[])
+    }, [user])
+
+    if (cartItems === null || totalPrice === null) return (<LoadingPage/>);
+
     function handleCompra(e){
         const headers = {Authorization: "Bearer " + user.token};
         const gamesBoughtIds = cartItems.map(i=> {return  i._id})
@@ -44,22 +46,24 @@ export default function CheckoutPage(){
         toggleModal();
         }).catch(r=>console.log(r));
     }
+
     function toggleModal(){
         setShowModal(true);
     }
+
     return(
         <CheckoutStyle displayModal={showModal}>
-            <Header/>
-            <div className="totalPrice"><h3>Preco total:</h3><h3><span>R$</span>{totalPrice}</h3></div>
+            <Header setUser={setUser}/>
+            <div className="totalPrice"><h3>Preço total:</h3><h3><span>R$ </span>{totalPrice}</h3></div>
             <form>
-                <h4>Informação de pagamento:</h4>
-                <input placeholder="buyer info" required onChange={e=>setBuyerInfo(e.target.value)}></input>
+                <h4>Forma de pagamento:</h4>
+                <input placeholder="Insira aqui" required onChange={e=>setBuyerInfo(e.target.value)}></input>
             </form>
             <div className="divCheckout" onClick={handleCompra}>COMPLETAR COMPRA</div>
             <div className="backgroundShadow"></div>
             <CheckoutModal displayModal={showModal}>
 
-                <h2>Obrigado,{saleInfo.name}, pela sua compra.</h2>
+                <h2>Obrigado, {saleInfo.name}, pela sua compra.</h2>
                 <h2>Aqui esta sua nota fiscal.</h2>
                 <ul>
                     {saleInfo.gamesBought.map((i,n)=>(<><li key={n}>{i}</li></>))}
@@ -74,6 +78,7 @@ export default function CheckoutPage(){
     
     )
 }
+
 const CheckoutModal = styled.div`
 display: ${props => props.displayModal? "flex" : "none"};
 border: 2px solid #17313a;
