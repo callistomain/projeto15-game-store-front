@@ -92,7 +92,11 @@ export const ProductStyle = styled.li`
     font-weight: 500;
     width: 100%;
   }
-
+  >img{
+    height:160px;
+    width:320px;
+    object-fit: cover;
+  }
   .price {
     background-color: ${colorBG};
     font-weight: 600;
