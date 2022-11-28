@@ -9,7 +9,6 @@ import { UserContext } from '../../../UserContext';
 export default function ProductItem({data, selected, setSelected}) {
   const user = useContext(UserContext);
   const {id, title, price, image} = data;
-  
 
   function eventHandler(e) {
     setSelected(obj => {

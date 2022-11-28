@@ -19,7 +19,7 @@ export default function App() {
         <Routes>
           {/* HOME */}
           <Route path="/" element={
-            user ? <HomePage/> : <Navigate replace to="/login" />
+            user ? <HomePage setUser={setUser}/> : <Navigate replace to="/login" />
           }/>
 
           {/* LOGIN */}
@@ -29,9 +29,9 @@ export default function App() {
           <Route path="/signup" element={<SignupPage/>}/>
 
           {/* SIGNUP */}
-          <Route path="/cart" element={<CartPage/>}/>
+          <Route path="/cart" element={<CartPage setUser={setUser}/>}/>
 
-          <Route path="/checkout" element={<CheckoutPage/>}/>
+          <Route path="/checkout" element={<CheckoutPage setUser={setUser}/>}/>
 
         </Routes>
       </UserContext.Provider>

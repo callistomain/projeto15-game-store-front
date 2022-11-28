@@ -9,11 +9,12 @@ import { Link } from "react-router-dom";
 import { colorBG } from "../../constants/colors";
 import { numFormat } from "../../constants/format";
 import { Button } from "../../components/Button";
+import LoadingPage from "../Loading/LoadingPage";
 
-export default function CartPage() {
+export default function CartPage({setUser}) {
   const user = useContext(UserContext);
-  const [cartItems, setCartItems] = useState([])
-  const [totalPrice, setTotalPrice] = useState()
+  const [cartItems, setCartItems] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(null);
 
   useEffect(()=>{
     const headers = {
@@ -22,20 +23,21 @@ export default function CartPage() {
 
     axios.get(url.cart, {headers})
     .then(r => {
-      console.log(r);
       setCartItems(r.data.games);
       setTotalPrice(r.data.totalPrice)
     })
     .catch(e => console.log(e));
-  },[])
+  }, [user]);
+
+  if (cartItems === null || totalPrice === null) return (<LoadingPage/>);
 
   return (
     <CartStyle>
-      <Header/>
+      <Header setUser={setUser}/>
       <ul>
-        {cartItems.map((item,index)=>(
+        {cartItems.map((item, index) => (
           <StyledItem key={index}>
-            <img src={item.image}/>
+            <img src={item.image} alt=""/>
             <div className="item-info">
               <div className="title">{item.title}</div>
               <div className="price"><span>R$</span>{numFormat(item.price)}</div>

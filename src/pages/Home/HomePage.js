@@ -2,12 +2,12 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { url } from "../../constants/urls";
 import { UserContext } from "../../UserContext";
-import { LoadingPage } from "../Loading/LoadingPage";
 import Header from "../Header/Header";
+import LoadingPage from "../Loading/LoadingPage";
 import { HomeStyle } from "./HomeStyle";
 import ProductItem from "./Product/ProductItem";
 
-export default function HomePage() {
+export default function HomePage({setUser}) {
   const user = useContext(UserContext);
   const [selected, setSelected] = useState(null);
   const [items, setItems] = useState(null);
@@ -32,11 +32,11 @@ export default function HomePage() {
     .catch(e => console.log(e));
   }, [user])
 
-  if (selected === null || items === null) return (<LoadingPage>LOADING!</LoadingPage>);
+  if (selected === null || items === null) return (<LoadingPage/>);
 
   return (
     <HomeStyle>
-      <Header selected={selected}/>
+      <Header setUser={setUser}/>
       <ul>
         {items.map((e, i) => <ProductItem key={i} data={{...e, id:i}} selected={selected[i]} setSelected={setSelected}/>)}
       </ul>
